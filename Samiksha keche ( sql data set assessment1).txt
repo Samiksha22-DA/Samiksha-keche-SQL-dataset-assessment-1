@@ -1,0 +1,73 @@
+create table employee_Information(employee_id int, first_name varchar,	last_name varchar,	
+salary int,	hire_date date,	manager_id int,	city varchar,	state varchar,	country varchar
+)
+
+create table Sales_Records(sale_id int,	product_id int,	customer_id int,
+sale_date date,	quantityn int,	unit_price real,	discount real,	total_sale real,	salesperson_id int,	region varchar
+)
+
+
+create table Product_Details(product_id int,	product_name varchar,	category varchar,	price real,	stock_quantity int,
+supplier_id int,	reorder_level int,	discontinued varchar,	created_at date,	updated_at date
+)
+
+create table Customer_Information(customer_id int,	first_name varchar,	last_name varchar,	
+email varchar,	phone varchar, address varchar,	city varchar,	state varchar,	country varchar,	account_creation_date date
+)
+
+create table Order_Details(order_id int, customer_id int,	order_date date,	shipping_date date,
+status varchar,	total_amount real,	payment_method varchar,	billing_address varchar,	shipping_address varchar,	shipper_id int
+)
+
+1
+select * from employee_information;
+
+2
+select * from customer_information where state ='Nevada';
+
+3
+select count (*) as total_sales from sales_records;
+
+4
+select * from product_details where price > 100;
+
+5
+select  first_name ||''|| Last_name employee_name, salary from employee_information;
+
+6
+insert into product_details(product_id,	product_name,	category,	price,	stock_quantity,	supplier_id,
+reorder_level,	discontinued,	created_at,	updated_at)
+values(201,'Samrtwatch','Electronic', 740.60, 464, 28, 100,'true','2024-12-10','2022-05-12');
+	
+7
+Update order_details Set status = 'Completed' where order_id = 5
+
+8
+ delete from customer_information where customer_id = 2;
+
+ 9
+ select salesperson_id, sum(total_sale) as total_sales from sales_records Group by salesperson_id;
+
+10
+select p.product_name, s.quantityn  from sales_records s join product_details p on s.product_id = p.product_id;    
+
+11
+select p.product_name, sum(s.total_sale) as total_sales from sales_records s join product_details p on s. product_id = p.product_id 
+group by p. product_name order by total_sales desc limit 5;
+
+12
+select * from order_details where order_date > '2023-01-01';
+
+13
+select distinct e. * from employee_information e join employee_information m on e.employee_id = m.manager_id;
+
+19
+select * from sales_records where discount > 0.15 order by total_sale desc;
+
+
+21
+select region, sum(total_sale) as total_sales from sales_records group by region order by total_sales desc    
+
+23
+select * from product_details where product_id not in(select distinct product_id from sales_records)
+
